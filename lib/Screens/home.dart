@@ -18,9 +18,6 @@ class Home extends StatefulWidget {
     @override
 
   Widget build(BuildContext context) {
-    final screenWidth = MediaQuery.of(context).size.width;
-    final screenHeight = MediaQuery.of(context).size.height;
-
     //dummy buat statistik
     final List<FlSpot> expenseData = [
       FlSpot(0, 10), // Contoh data: minggu pertama
@@ -38,10 +35,10 @@ class Home extends StatefulWidget {
             SliverList(
               delegate: SliverChildListDelegate([
                 // Header Section
-                Stack(
+                Stack( //pake stack soalnya biar bs pake bg image dan krn 1 container ini ada anak" nya lg
                   children: [
                     Container(
-                      width: double.infinity,
+                      width: double.infinity, // lebar containernya full lebar layar
                       height: 200,
                       decoration: BoxDecoration(
                         image: DecorationImage(

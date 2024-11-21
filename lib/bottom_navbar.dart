@@ -1,8 +1,12 @@
 
 import 'package:flutter/material.dart';
 import 'package:monkeep/Screens/home.dart';
-import 'package:monkeep/Screens/add.dart';
+import 'package:monkeep/Screens/addHutang.dart';
 import 'package:monkeep/Screens/laporan.dart';
+import 'package:monkeep/Screens/saya.dart';
+import 'package:monkeep/Screens/tabunganBerencana.dart';
+
+//ni msh blum bner.
 
 class Bottom extends StatefulWidget {
   const Bottom({Key? key}) : super(key: key);
@@ -13,7 +17,7 @@ class Bottom extends StatefulWidget {
 
 class _BottomState extends State<Bottom> {
   int index_color = 0;
-  List Screen = [Home(), Laporan(), Add(), Tabungan()];
+  List Screen = [Home(), Laporan(), Add(), Tabunganberencana(), Saya()];
   @override
   Widget build(BuildContext context) {
     return Scaffold(

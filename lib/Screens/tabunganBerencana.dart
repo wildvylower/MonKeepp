@@ -1,8 +1,8 @@
 import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/material.dart';
 
-class Laporan extends StatelessWidget {
-  const Laporan({super.key});
+class Tabunganberencana extends StatelessWidget {
+  const Tabunganberencana({super.key});
 
   @override
  Widget build(BuildContext context) {
@@ -21,7 +21,7 @@ class Laporan extends StatelessWidget {
               ),
               child: Padding(padding: const EdgeInsets.symmetric(horizontal: 16),
               child: 
-                     AutoSizeText('Laporan Keuangan',
+                     AutoSizeText('Tabungan Berencana',
                      style: TextStyle(
                       fontFamily: 'Poppins',
                       fontSize: 16,
