@@ -71,6 +71,9 @@ flutter:
     - images/dana.png
     - images/addHutang.png
     - images/AddTabungan.png
+    - images/MoneyBag.png
+    - images/MoneyBox.png
+    - images/BankBuilding.png
 
   #   - images/a_dot_ham.jpeg
 

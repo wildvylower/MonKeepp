@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:monkeep/Screens/addHutang.dart';
+import 'package:monkeep/bottom_navbar.dart';
 import 'Screens/home.dart';
 
 
@@ -14,7 +15,7 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
-      home: Home(),
+      home: Bottom(),
     );
   }
 }

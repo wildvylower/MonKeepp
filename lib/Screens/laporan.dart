@@ -19,7 +19,7 @@ class Laporan extends StatelessWidget {
               decoration: BoxDecoration(
                 color :  Color(0xFF4A63E2),
               ),
-              child: Padding(padding: const EdgeInsets.symmetric(horizontal: 16),
+              child: Padding(padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 35),
               child: 
                      AutoSizeText('Laporan Keuangan',
                      style: TextStyle(
