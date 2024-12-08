@@ -57,7 +57,7 @@ class AddTransaction extends StatelessWidget {
                       width: 362,
                       height: 362,
                       decoration: BoxDecoration(
-                        color: Colors.white,
+                        color: Colors.black,
                         borderRadius: BorderRadius.circular(10),
                         boxShadow: [
                           BoxShadow(
@@ -77,7 +77,7 @@ class AddTransaction extends StatelessWidget {
                             },
                             child: const Icon(
                               FontAwesomeIcons.camera,
-                              color: Colors.black,
+                              color: Colors.white,
                               size: 40,
                             ),
                           ),
@@ -87,13 +87,22 @@ class AddTransaction extends StatelessWidget {
                             style: TextStyle(
                               fontFamily: 'Poppins',
                               fontSize: 14,
-                              color: Colors.black,
+                              color: Colors.white,
                             ),
                             maxLines: 1,
                             maxFontSize: 16,
                             minFontSize: 12,
                           ),
-                          const SizedBox(height: 8),
+                        ],
+                      ),
+                    ),
+                  ),
+                  Padding(
+                    padding: const EdgeInsets.symmetric(horizontal: 16),
+                      child: Column(
+                        mainAxisAlignment: MainAxisAlignment.end,
+                        children: [
+                          const SizedBox(height: 2),
                           TextButton.icon(
                             onPressed: () {}, // Add upload logic here
                             icon: const FaIcon(
@@ -112,169 +121,227 @@ class AddTransaction extends StatelessWidget {
                           ),
                         ],
                       ),
-                    ),
                   ),
-
                   // Form Fields
                   Padding(
-                    padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 20),
+                    padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 24),
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         // Dropdown for Expense or Income
-                        DropdownButtonFormField<String>(
-                          decoration: InputDecoration(
-                            labelText: 'Jenis Transaksi',
-                            labelStyle: const TextStyle(
-                              fontFamily: 'Poppins',
-                              fontSize: 14,
-                              color: Colors.black,
-                            ),
-                            border: OutlineInputBorder(
-                              borderRadius: BorderRadius.circular(10.0),
-                            ),
+                        Container(
+                          decoration: BoxDecoration(
+                            color: Colors.white,
+                            borderRadius: BorderRadius.circular(10.0),
+                            boxShadow: [
+                              BoxShadow(
+                                color: Colors.black.withOpacity(0.1),
+                                blurRadius: 6,
+                                offset: Offset(0, 3),
+                              ),
+                            ],
                           ),
-                          items: const [
-                            DropdownMenuItem(
-                              value: 'Pengeluaran',
-                              child: Text('Pengeluaran'),
+                          child: DropdownButtonFormField<String>(
+                            decoration: InputDecoration(
+                              contentPadding: const EdgeInsets.symmetric(horizontal: 12, vertical: 12),
+                              labelText: 'Jenis Transaksi',
+                              labelStyle: const TextStyle(
+                                fontFamily: 'Poppins',
+                                fontSize: 14,
+                                color: Colors.black,
+                              ),
+                              border: OutlineInputBorder(
+                                borderRadius: BorderRadius.circular(10.0),
+                                borderSide: BorderSide.none, // Remove border since shadow is used
+                              ),
                             ),
-                            DropdownMenuItem(
-                              value: 'Pemasukan',
-                              child: Text('Pemasukan'),
-                            ),
-                          ],
-                          onChanged: (value) {},
+                            items: const [
+                              DropdownMenuItem(value: 'Pengeluaran', child: Text('Pengeluaran')),
+                              DropdownMenuItem(value: 'Pemasukan', child: Text('Pemasukan')),
+                            ],
+                            onChanged: (value) {},
+                          ),
                         ),
-                        const SizedBox(height: 16),
+                        const SizedBox(height: 20),
 
                         // Category Dropdown
-                        DropdownButtonFormField<String>(
-                          decoration: InputDecoration(
-                            labelText: 'Kategori',
-                            labelStyle: const TextStyle(
-                              fontFamily: 'Poppins',
-                              fontSize: 14,
-                              color: Colors.black,
-                            ),
-                            border: OutlineInputBorder(
-                              borderRadius: BorderRadius.circular(10.0),
-                            ),
+                        Container(
+                          decoration: BoxDecoration(
+                            color: Colors.white,
+                            borderRadius: BorderRadius.circular(10.0),
+                            boxShadow: [
+                              BoxShadow(
+                                color: Colors.black.withOpacity(0.1),
+                                blurRadius: 6,
+                                offset: Offset(0, 3),
+                              ),
+                            ],
                           ),
-                          items: const [
-                            DropdownMenuItem(
-                              value: 'Makanan',
-                              child: Text('Makanan'),
+                          child: DropdownButtonFormField<String>(
+                            decoration: InputDecoration(
+                              contentPadding: const EdgeInsets.symmetric(horizontal: 12, vertical: 12),
+                              labelText: 'Kategori',
+                              labelStyle: const TextStyle(
+                                fontFamily: 'Poppins',
+                                fontSize: 14,
+                                color: Colors.black,
+                              ),
+                              border: OutlineInputBorder(
+                                borderRadius: BorderRadius.circular(10.0),
+                                borderSide: BorderSide.none,
+                              ),
                             ),
-                            DropdownMenuItem(
-                              value: 'Transportasi',
-                              child: Text('Transportasi'),
-                            ),
-                            DropdownMenuItem(
-                              value: 'Sewa',
-                              child: Text('Sewa'),
-                            ),
-                            DropdownMenuItem(
-                              value: 'Belanja',
-                              child: Text('Belanja'),
-                            ),
-                          ],
-                          onChanged: (value) {},
+                            items: const [
+                              DropdownMenuItem(value: 'Makanan', child: Text('Makanan')),
+                              DropdownMenuItem(value: 'Transportasi', child: Text('Transportasi')),
+                              DropdownMenuItem(value: 'Sewa', child: Text('Sewa')),
+                              DropdownMenuItem(value: 'Belanja', child: Text('Belanja')),
+                            ],
+                            onChanged: (value) {},
+                          ),
                         ),
-                        const SizedBox(height: 16),
+                        const SizedBox(height: 20),
 
                         // Amount Input
-                        TextFormField(
-                          decoration: InputDecoration(
-                            labelText: 'Jumlah',
-                            prefixText: 'Rp ',
-                            labelStyle: const TextStyle(
-                              fontFamily: 'Poppins',
-                              fontSize: 14,
-                              color: Colors.black,
-                            ),
-                            border: OutlineInputBorder(
-                              borderRadius: BorderRadius.circular(10.0),
-                            ),
+                        Container(
+                          decoration: BoxDecoration(
+                            color: Colors.white,
+                            borderRadius: BorderRadius.circular(10.0),
+                            boxShadow: [
+                              BoxShadow(
+                                color: Colors.black.withOpacity(0.1),
+                                blurRadius: 6,
+                                offset: Offset(0, 3),
+                              ),
+                            ],
                           ),
-                          keyboardType: TextInputType.number,
+                          child: TextFormField(
+                            decoration: InputDecoration(
+                              contentPadding: const EdgeInsets.symmetric(horizontal: 12, vertical: 12),
+                              labelText: 'Jumlah',
+                              prefixText: 'Rp ',
+                              labelStyle: const TextStyle(
+                                fontFamily: 'Poppins',
+                                fontSize: 14,
+                                color: Colors.black,
+                              ),
+                              border: OutlineInputBorder(
+                                borderRadius: BorderRadius.circular(10.0),
+                                borderSide: BorderSide.none,
+                              ),
+                            ),
+                            keyboardType: TextInputType.number,
+                          ),
                         ),
-                        const SizedBox(height: 16),
+                        const SizedBox(height: 20),
 
                         // Description Input
-                        TextFormField(
-                          decoration: InputDecoration(
-                            labelText: 'Keterangan',
-                            labelStyle: const TextStyle(
-                              fontFamily: 'Poppins',
-                              fontSize: 14,
-                              color: Colors.black,
-                            ),
-                            border: OutlineInputBorder(
-                              borderRadius: BorderRadius.circular(10.0),
+                        Container(
+                          decoration: BoxDecoration(
+                            color: Colors.white,
+                            borderRadius: BorderRadius.circular(10.0),
+                            boxShadow: [
+                              BoxShadow(
+                                color: Colors.black.withOpacity(0.1),
+                                blurRadius: 6,
+                                offset: Offset(0, 3),
+                              ),
+                            ],
+                          ),
+                          child: TextFormField(
+                            decoration: InputDecoration(
+                              contentPadding: const EdgeInsets.symmetric(horizontal: 12, vertical: 12),
+                              labelText: 'Keterangan',
+                              labelStyle: const TextStyle(
+                                fontFamily: 'Poppins',
+                                fontSize: 14,
+                                color: Colors.black,
+                              ),
+                              border: OutlineInputBorder(
+                                borderRadius: BorderRadius.circular(10.0),
+                                borderSide: BorderSide.none,
+                              ),
                             ),
                           ),
                         ),
-                        const SizedBox(height: 16),
+                        const SizedBox(height: 20),
 
                         // Account Dropdown
-                        DropdownButtonFormField<String>(
-                          decoration: InputDecoration(
-                            labelText: 'Rekening',
-                            labelStyle: const TextStyle(
-                              fontFamily: 'Poppins',
-                              fontSize: 14,
-                              color: Colors.black,
-                            ),
-                            border: OutlineInputBorder(
-                              borderRadius: BorderRadius.circular(10.0),
-                            ),
+                        Container(
+                          decoration: BoxDecoration(
+                            color: Colors.white,
+                            borderRadius: BorderRadius.circular(10.0),
+                            boxShadow: [
+                              BoxShadow(
+                                color: Colors.black.withOpacity(0.1),
+                                blurRadius: 6,
+                                offset: Offset(0, 3),
+                              ),
+                            ],
                           ),
-                          items: const [
-                            DropdownMenuItem(
-                              value: 'BCA',
-                              child: Text('BCA'),
+                          child: DropdownButtonFormField<String>(
+                            decoration: InputDecoration(
+                              contentPadding: const EdgeInsets.symmetric(horizontal: 12, vertical: 12),
+                              labelText: 'Rekening',
+                              labelStyle: const TextStyle(
+                                fontFamily: 'Poppins',
+                                fontSize: 14,
+                                color: Colors.black,
+                              ),
+                              border: OutlineInputBorder(
+                                borderRadius: BorderRadius.circular(10.0),
+                                borderSide: BorderSide.none,
+                              ),
                             ),
-                            DropdownMenuItem(
-                              value: 'ShopeePay',
-                              child: Text('ShopeePay'),
-                            ),
-                            DropdownMenuItem(
-                              value: 'GoPay',
-                              child: Text('GoPay'),
-                            ),
-                            DropdownMenuItem(
-                              value: 'OVO',
-                              child: Text('OVO'),
-                            ),
-                          ],
-                          onChanged: (value) {},
+                            items: const [
+                              DropdownMenuItem(value: 'BCA', child: Text('BCA')),
+                              DropdownMenuItem(value: 'ShopeePay', child: Text('ShopeePay')),
+                              DropdownMenuItem(value: 'GoPay', child: Text('GoPay')),
+                              DropdownMenuItem(value: 'OVO', child: Text('OVO')),
+                            ],
+                            onChanged: (value) {},
+                          ),
                         ),
-                        const SizedBox(height: 16),
+                        const SizedBox(height: 20),
 
                         // Date Picker
-                        TextFormField(
-                          readOnly: true,
-                          decoration: InputDecoration(
-                            labelText: 'Tanggal',
-                            suffixIcon: const Icon(Icons.calendar_today),
-                            labelStyle: const TextStyle(
-                              fontFamily: 'Poppins',
-                              fontSize: 14,
-                              color: Colors.black,
-                            ),
-                            border: OutlineInputBorder(
-                              borderRadius: BorderRadius.circular(10.0),
-                            ),
+                        Container(
+                          decoration: BoxDecoration(
+                            color: Colors.white,
+                            borderRadius: BorderRadius.circular(10.0),
+                            boxShadow: [
+                              BoxShadow(
+                                color: Colors.black.withOpacity(0.1),
+                                blurRadius: 6,
+                                offset: Offset(0, 3),
+                              ),
+                            ],
                           ),
-                          onTap: () async {
-                            DateTime? pickedDate = await showDatePicker(
-                              context: context,
-                              initialDate: DateTime.now(),
-                              firstDate: DateTime(2000),
-                              lastDate: DateTime(2100),
-                            );
-                          },
+                          child: TextFormField(
+                            readOnly: true,
+                            decoration: InputDecoration(
+                              contentPadding: const EdgeInsets.symmetric(horizontal: 12, vertical: 12),
+                              labelText: 'Tanggal',
+                              suffixIcon: const Icon(Icons.calendar_today),
+                              labelStyle: const TextStyle(
+                                fontFamily: 'Poppins',
+                                fontSize: 14,
+                                color: Colors.black,
+                              ),
+                              border: OutlineInputBorder(
+                                borderRadius: BorderRadius.circular(10.0),
+                                borderSide: BorderSide.none,
+                              ),
+                            ),
+                            onTap: () async {
+                              DateTime? pickedDate = await showDatePicker(
+                                context: context,
+                                initialDate: DateTime.now(),
+                                firstDate: DateTime(2000),
+                                lastDate: DateTime(2100),
+                              );
+                            },
+                          ),
                         ),
                         const SizedBox(height: 24),
 
@@ -286,8 +353,7 @@ class AddTransaction extends StatelessWidget {
                             },
                             style: ElevatedButton.styleFrom(
                               backgroundColor: const Color(0xFF4A63E2),
-                              padding: const EdgeInsets.symmetric(
-                                  horizontal: 32, vertical: 16),
+                              padding: const EdgeInsets.symmetric(horizontal: 32, vertical: 20),
                               shape: RoundedRectangleBorder(
                                 borderRadius: BorderRadius.circular(10),
                               ),
