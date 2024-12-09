@@ -1,3 +1,5 @@
+
+
 import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
@@ -27,11 +29,15 @@ class AddTransaction extends StatelessWidget {
                       child: Row(
                         mainAxisAlignment: MainAxisAlignment.start,
                         children: [
-                          const FaIcon(
+                           IconButton(
+                            icon : const FaIcon(
                             FontAwesomeIcons.chevronLeft,
                             color: Colors.white,
                             size: 24,
                           ),
+                            onPressed: () {Navigator.pop(context);},
+                            ),
+                          
                           const SizedBox(width: 16),
                           const AutoSizeText(
                             'Tambah Catatan Keuangan',
@@ -347,7 +353,8 @@ class AddTransaction extends StatelessWidget {
                         const SizedBox(height: 24),
 
                         // Submit Button
-                        Center(
+                        Container(
+                          width: double.infinity,
                           child: ElevatedButton(
                             onPressed: () {
                               // Add save logic

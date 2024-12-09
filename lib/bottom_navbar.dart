@@ -25,8 +25,8 @@ class _BottomState extends State<Bottom> {
       context: context,
       builder: (context) {
         return Container(
-          height: 200,
-          width: 390,
+          height: 230,
+          width: double.infinity,
           padding: const EdgeInsets.all(16),
           decoration: BoxDecoration(
             color: Colors.white,
