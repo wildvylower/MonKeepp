@@ -140,7 +140,7 @@ class _BottomState extends State<Bottom> {
             label,
             style: TextStyle(
               fontFamily: 'Poppins',
-              fontSize: 12,
+              fontSize: 10,
               color: index_color == index ? Color(0xff808CFA) : Color(0xffC5BAFC),
             ),
             maxLines: 1,
