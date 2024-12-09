@@ -100,9 +100,10 @@ class AddTransaction extends StatelessWidget {
                   Padding(
                     padding: const EdgeInsets.symmetric(horizontal: 16),
                       child: Column(
-                        mainAxisAlignment: MainAxisAlignment.end,
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        crossAxisAlignment: CrossAxisAlignment.end,
                         children: [
-                          const SizedBox(height: 2),
+                        
                           TextButton.icon(
                             onPressed: () {}, // Add upload logic here
                             icon: const FaIcon(
