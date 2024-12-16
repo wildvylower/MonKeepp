@@ -1,11 +1,75 @@
-
-
 import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:image_picker/image_picker.dart';
+import 'package:http/http.dart' as http;
+import 'dart:convert';
 
 class AddTransaction extends StatelessWidget {
-  const AddTransaction({super.key});
+  // const AddTransaction({super.key});
+
+  final ImagePicker _picker = ImagePicker();
+  final TextEditingController jumlahController = TextEditingController();
+  final TextEditingController keteranganController = TextEditingController();
+
+  Future<void> scanReceipt(BuildContext context) async {
+    try {
+      final XFile? image = await _picker.pickImage(source: ImageSource.camera);
+
+      if (image != null) {
+        // Kirim gambar ke backend
+        await sendImageToBackend(context, image.path);
+        print("Image has been sent");
+      } else {
+        print("No image captured");
+      }
+    } catch (e) {
+      print("Error: $e");
+    }
+  }
+
+  Future<void> uploadReceipt(BuildContext context) async {
+    try {
+      final XFile? image = await _picker.pickImage(source: ImageSource.gallery);
+
+      if (image != null) {
+        // Kirim gambar ke backend
+        await sendImageToBackend(context, image.path);
+        print("Image has been sent");
+      } else {
+        print("No image captured");
+      }
+    } catch (e) {
+      print("Error: $e");
+    }
+  }
+
+  Future<void> sendImageToBackend(
+      BuildContext context, String imagePath) async {
+    final uri = Uri.parse('http://localhost:8000/process-receipt');
+    final request = http.MultipartRequest('POST', uri);
+    request.files.add(await http.MultipartFile.fromPath('image', imagePath));
+
+    final response = await request.send();
+
+    if (response.statusCode == 200) {
+      final responseBody = await response.stream.bytesToString();
+      final result = json.decode(responseBody);
+
+      if (result != null) {
+        final jumlah = result['total'];
+        final keterangan = result['judul_struk'];
+
+        // Masukkan hasil ke text field di Flutter
+        jumlahController.text = jumlah;
+        keteranganController.text = keterangan;
+
+        print('Jumlah: $jumlah, Keterangan: $keterangan');
+      }
+    } else {
+      print("Failed to process receipt: ${response.statusCode}");
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -29,15 +93,16 @@ class AddTransaction extends StatelessWidget {
                       child: Row(
                         mainAxisAlignment: MainAxisAlignment.start,
                         children: [
-                           IconButton(
-                            icon : const FaIcon(
-                            FontAwesomeIcons.chevronLeft,
-                            color: Colors.white,
-                            size: 24,
-                          ),
-                            onPressed: () {Navigator.pop(context);},
+                          IconButton(
+                            icon: const FaIcon(
+                              FontAwesomeIcons.chevronLeft,
+                              color: Colors.white,
+                              size: 24,
                             ),
-                          
+                            onPressed: () {
+                              Navigator.pop(context);
+                            },
+                          ),
                           const SizedBox(width: 16),
                           const AutoSizeText(
                             'Tambah Catatan Keuangan',
@@ -58,7 +123,8 @@ class AddTransaction extends StatelessWidget {
 
                   // Image Container
                   Padding(
-                    padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 20),
+                    padding: const EdgeInsets.symmetric(
+                        horizontal: 16, vertical: 20),
                     child: Container(
                       width: 362,
                       height: 362,
@@ -78,9 +144,7 @@ class AddTransaction extends StatelessWidget {
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [
                           GestureDetector(
-                            onTap: () {
-                              // Add camera logic here
-                            },
+                            onTap: () => scanReceipt(context), //camera logic
                             child: const Icon(
                               FontAwesomeIcons.camera,
                               color: Colors.white,
@@ -105,33 +169,35 @@ class AddTransaction extends StatelessWidget {
                   ),
                   Padding(
                     padding: const EdgeInsets.symmetric(horizontal: 16),
-                      child: Column(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        crossAxisAlignment: CrossAxisAlignment.end,
-                        children: [
-                        
-                          TextButton.icon(
-                            onPressed: () {}, // Add upload logic here
-                            icon: const FaIcon(
-                              FontAwesomeIcons.upload,
+                    child: Column(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      crossAxisAlignment: CrossAxisAlignment.end,
+                      children: [
+                        TextButton.icon(
+                          onPressed: () {
+                            uploadReceipt(context);
+                          }, // Add upload logic here
+                          icon: const FaIcon(
+                            FontAwesomeIcons.upload,
+                            color: Color(0xFF4A63E2),
+                            size: 16,
+                          ),
+                          label: const Text(
+                            'Unggah Gambar',
+                            style: TextStyle(
+                              fontFamily: 'Poppins',
+                              fontSize: 12,
                               color: Color(0xFF4A63E2),
-                              size: 16,
-                            ),
-                            label: const Text(
-                              'Unggah Gambar',
-                              style: TextStyle(
-                                fontFamily: 'Poppins',
-                                fontSize: 12,
-                                color: Color(0xFF4A63E2),
-                              ),
                             ),
                           ),
-                        ],
-                      ),
+                        ),
+                      ],
+                    ),
                   ),
                   // Form Fields
                   Padding(
-                    padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 24),
+                    padding: const EdgeInsets.symmetric(
+                        horizontal: 16, vertical: 24),
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
@@ -150,7 +216,8 @@ class AddTransaction extends StatelessWidget {
                           ),
                           child: DropdownButtonFormField<String>(
                             decoration: InputDecoration(
-                              contentPadding: const EdgeInsets.symmetric(horizontal: 12, vertical: 12),
+                              contentPadding: const EdgeInsets.symmetric(
+                                  horizontal: 12, vertical: 12),
                               labelText: 'Jenis Transaksi',
                               labelStyle: const TextStyle(
                                 fontFamily: 'Poppins',
@@ -159,12 +226,16 @@ class AddTransaction extends StatelessWidget {
                               ),
                               border: OutlineInputBorder(
                                 borderRadius: BorderRadius.circular(10.0),
-                                borderSide: BorderSide.none, // Remove border since shadow is used
+                                borderSide: BorderSide
+                                    .none, // Remove border since shadow is used
                               ),
                             ),
                             items: const [
-                              DropdownMenuItem(value: 'Pengeluaran', child: Text('Pengeluaran')),
-                              DropdownMenuItem(value: 'Pemasukan', child: Text('Pemasukan')),
+                              DropdownMenuItem(
+                                  value: 'Pengeluaran',
+                                  child: Text('Pengeluaran')),
+                              DropdownMenuItem(
+                                  value: 'Pemasukan', child: Text('Pemasukan')),
                             ],
                             onChanged: (value) {},
                           ),
@@ -186,7 +257,8 @@ class AddTransaction extends StatelessWidget {
                           ),
                           child: DropdownButtonFormField<String>(
                             decoration: InputDecoration(
-                              contentPadding: const EdgeInsets.symmetric(horizontal: 12, vertical: 12),
+                              contentPadding: const EdgeInsets.symmetric(
+                                  horizontal: 12, vertical: 12),
                               labelText: 'Kategori',
                               labelStyle: const TextStyle(
                                 fontFamily: 'Poppins',
@@ -199,10 +271,15 @@ class AddTransaction extends StatelessWidget {
                               ),
                             ),
                             items: const [
-                              DropdownMenuItem(value: 'Makanan', child: Text('Makanan')),
-                              DropdownMenuItem(value: 'Transportasi', child: Text('Transportasi')),
-                              DropdownMenuItem(value: 'Sewa', child: Text('Sewa')),
-                              DropdownMenuItem(value: 'Belanja', child: Text('Belanja')),
+                              DropdownMenuItem(
+                                  value: 'Makanan', child: Text('Makanan')),
+                              DropdownMenuItem(
+                                  value: 'Transportasi',
+                                  child: Text('Transportasi')),
+                              DropdownMenuItem(
+                                  value: 'Sewa', child: Text('Sewa')),
+                              DropdownMenuItem(
+                                  value: 'Belanja', child: Text('Belanja')),
                             ],
                             onChanged: (value) {},
                           ),
@@ -223,8 +300,10 @@ class AddTransaction extends StatelessWidget {
                             ],
                           ),
                           child: TextFormField(
+                            controller: jumlahController,
                             decoration: InputDecoration(
-                              contentPadding: const EdgeInsets.symmetric(horizontal: 12, vertical: 12),
+                              contentPadding: const EdgeInsets.symmetric(
+                                  horizontal: 12, vertical: 12),
                               labelText: 'Jumlah',
                               prefixText: 'Rp ',
                               labelStyle: const TextStyle(
@@ -256,8 +335,10 @@ class AddTransaction extends StatelessWidget {
                             ],
                           ),
                           child: TextFormField(
+                            controller: keteranganController,
                             decoration: InputDecoration(
-                              contentPadding: const EdgeInsets.symmetric(horizontal: 12, vertical: 12),
+                              contentPadding: const EdgeInsets.symmetric(
+                                  horizontal: 12, vertical: 12),
                               labelText: 'Keterangan',
                               labelStyle: const TextStyle(
                                 fontFamily: 'Poppins',
@@ -288,7 +369,8 @@ class AddTransaction extends StatelessWidget {
                           ),
                           child: DropdownButtonFormField<String>(
                             decoration: InputDecoration(
-                              contentPadding: const EdgeInsets.symmetric(horizontal: 12, vertical: 12),
+                              contentPadding: const EdgeInsets.symmetric(
+                                  horizontal: 12, vertical: 12),
                               labelText: 'Rekening',
                               labelStyle: const TextStyle(
                                 fontFamily: 'Poppins',
@@ -301,10 +383,14 @@ class AddTransaction extends StatelessWidget {
                               ),
                             ),
                             items: const [
-                              DropdownMenuItem(value: 'BCA', child: Text('BCA')),
-                              DropdownMenuItem(value: 'ShopeePay', child: Text('ShopeePay')),
-                              DropdownMenuItem(value: 'GoPay', child: Text('GoPay')),
-                              DropdownMenuItem(value: 'OVO', child: Text('OVO')),
+                              DropdownMenuItem(
+                                  value: 'BCA', child: Text('BCA')),
+                              DropdownMenuItem(
+                                  value: 'ShopeePay', child: Text('ShopeePay')),
+                              DropdownMenuItem(
+                                  value: 'GoPay', child: Text('GoPay')),
+                              DropdownMenuItem(
+                                  value: 'OVO', child: Text('OVO')),
                             ],
                             onChanged: (value) {},
                           ),
@@ -327,7 +413,8 @@ class AddTransaction extends StatelessWidget {
                           child: TextFormField(
                             readOnly: true,
                             decoration: InputDecoration(
-                              contentPadding: const EdgeInsets.symmetric(horizontal: 12, vertical: 12),
+                              contentPadding: const EdgeInsets.symmetric(
+                                  horizontal: 12, vertical: 12),
                               labelText: 'Tanggal',
                               suffixIcon: const Icon(Icons.calendar_today),
                               labelStyle: const TextStyle(
@@ -361,7 +448,8 @@ class AddTransaction extends StatelessWidget {
                             },
                             style: ElevatedButton.styleFrom(
                               backgroundColor: const Color(0xFF4A63E2),
-                              padding: const EdgeInsets.symmetric(horizontal: 32, vertical: 20),
+                              padding: const EdgeInsets.symmetric(
+                                  horizontal: 32, vertical: 20),
                               shape: RoundedRectangleBorder(
                                 borderRadius: BorderRadius.circular(10),
                               ),
