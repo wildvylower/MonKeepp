@@ -230,6 +230,7 @@ class AddTransaction extends StatelessWidget {
                                     .none, // Remove border since shadow is used
                               ),
                             ),
+                        
                             items: const [
                               DropdownMenuItem(
                                   value: 'Pengeluaran',
