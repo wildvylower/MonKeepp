@@ -58,7 +58,7 @@ class Home extends StatefulWidget {
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
                             AutoSizeText(
-                              'Halo, Sumbul',
+                              'Halo Callisto',
                               style: TextStyle(
                                 fontFamily: 'Poppins',
                                 fontSize: 20,
