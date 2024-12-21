@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "698244472031",
+    "project_id": "monkeep-e6e73",
+    "storage_bucket": "monkeep-e6e73.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:698244472031:android:38a7fedb9a6cedb8aedd6a",
+        "android_client_info": {
+          "package_name": "com.example.monkeep"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyD0UD7myDetdD-0W-yIxNKOmNjWR9X7obk"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
