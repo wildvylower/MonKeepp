@@ -5,12 +5,17 @@ import 'package:image_picker/image_picker.dart';
 import 'package:http/http.dart' as http;
 import 'dart:convert';
 
+import 'package:monkeep/models/database_service.dart';
+
 class AddTransaction extends StatelessWidget {
   // const AddTransaction({super.key});
 
   final ImagePicker _picker = ImagePicker();
   final TextEditingController jumlahController = TextEditingController();
   final TextEditingController keteranganController = TextEditingController();
+  String? kategoriValue = "Pemasukan";
+  String? rekeningValue = "BCA";
+  final _dbservice = DatabaseService();
 
   Future<void> scanReceipt(BuildContext context) async {
     try {
@@ -230,7 +235,6 @@ class AddTransaction extends StatelessWidget {
                                     .none, // Remove border since shadow is used
                               ),
                             ),
-                        
                             items: const [
                               DropdownMenuItem(
                                   value: 'Pengeluaran',
@@ -238,7 +242,9 @@ class AddTransaction extends StatelessWidget {
                               DropdownMenuItem(
                                   value: 'Pemasukan', child: Text('Pemasukan')),
                             ],
-                            onChanged: (value) {},
+                            onChanged: (value) {
+                              kategoriValue = value;
+                            },
                           ),
                         ),
                         const SizedBox(height: 20),
@@ -393,7 +399,9 @@ class AddTransaction extends StatelessWidget {
                               DropdownMenuItem(
                                   value: 'OVO', child: Text('OVO')),
                             ],
-                            onChanged: (value) {},
+                            onChanged: (value) {
+                              rekeningValue = value;
+                            },
                           ),
                         ),
                         const SizedBox(height: 20),
@@ -445,7 +453,12 @@ class AddTransaction extends StatelessWidget {
                           width: double.infinity,
                           child: ElevatedButton(
                             onPressed: () {
-                              // Add save logic
+                              final transaction = MyTransaction(
+                                  kategori: kategoriValue,
+                                  jumlah: int.parse(jumlahController.text),
+                                  keterangan: keteranganController.text,
+                                  rekening: rekeningValue);
+                              _dbservice.create(transaction);
                             },
                             style: ElevatedButton.styleFrom(
                               backgroundColor: const Color(0xFF4A63E2),
@@ -476,4 +489,24 @@ class AddTransaction extends StatelessWidget {
       ),
     );
   }
+}
+
+class MyTransaction {
+  final String? kategori;
+  final int jumlah;
+  final String keterangan;
+  final String? rekening;
+
+  MyTransaction(
+      {required this.kategori,
+      required this.jumlah,
+      required this.keterangan,
+      required this.rekening});
+
+  Map<String, dynamic> toMap() => {
+        "kategori": kategori,
+        "jumlah": jumlah,
+        "keterangan": keterangan,
+        "rekening": rekening
+      };
 }

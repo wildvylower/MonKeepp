@@ -20,6 +20,7 @@ void main() async {
             measurementId: "G-SQJWD9TGE9"));
   } else {
     await Firebase.initializeApp();
+    print("Firebase tersambung");
   }
 
   runApp(const MyApp());
