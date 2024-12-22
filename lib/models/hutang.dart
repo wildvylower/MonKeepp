@@ -1,17 +1,17 @@
-class Add_data {
+class Hutang {
   final String name;        // Nama aplikasi (misalnya, Gopay, OVO)
   final String amount;      // Jumlah transaksi 
   final String description;          // Kategori (Income atau Expense)
   final String category;    // Kategori transaksi (misalnya, Makanan, Transportasi)
-  final String icon;   
+  final String dateline;   
   final String date;     // Nama file icon aplikasi yang akan ditampilkan
 
-  Add_data({
+  Hutang({
     required this.name,
     required this.amount,
     required this.description,
     required this.category,
-    required this.icon,
+    required this.dateline,
     required this.date,
   });
 
@@ -28,29 +28,29 @@ class Add_data {
   // }
 }
 
-final List<Add_data> dummyTransactions = [
-  Add_data(
-    name: 'Gopay',
-    amount: 'Rp 10.000',
-    description: 'Cilok Pak Charles',
-    category: 'Pengeluaran',
-    icon: 'gopay.png',
+final List<Hutang> dummyTransactions = [
+  Hutang(
+    name: 'Bu Ana Deket Musholla',
+    amount: 'Rp 700.000',
+    description: 'Beli Blender',
+    category: 'Hutang',
+    dateline: 'Lunas',
     date : '12 Desember 2024'
   ),
-  Add_data(
-    name: 'ShopeePay',
-    amount: 'Rp 50.000',
-    description: 'Kalung Kucing Cantik Liontin Hati',
-    category: 'Pengeluaran',
-    icon: 'shopepay.png',
+  Hutang(
+    name: 'Toko Yuni',
+    amount: 'Rp 17.000',
+    description: 'Ayam Krispi',
+    category: 'Hutang',
+    dateline: 'Lunas',
     date : '12 Desember 2024'
   ),
-  Add_data(
-    name: 'Dana',
-    amount: 'Rp 200.000',
-    description: 'Art Commiss Semi Realistic Couple',
-    category: 'Pemasukan',
-    icon: 'dana.png',
+  Hutang(
+    name: 'Bangunanmu',
+    amount: 'Rp 185.000',
+    description: 'Cat No Drop Kuning Telor Asin',
+    category: 'Hutang',
+    dateline: 'Lunas',
     date : '12 Desember 2024'
   ),
   

@@ -35,7 +35,14 @@ class LaporanSaldo extends StatelessWidget {
                     ),
                   ),
 
-                  Filterlaporan(),
+                  Padding(padding: const EdgeInsets.symmetric(horizontal: 8),
+                  child: Container(
+                    width: double.infinity,
+                    child: 
+                      Filterlaporan(currentIndex: 0),
+                  ),),
+
+                  
 
                   // Header Title
                   Padding(

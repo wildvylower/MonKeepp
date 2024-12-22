@@ -5,15 +5,11 @@ import 'package:monkeep/Screens/laporanTransaksi.dart';
 import 'package:monkeep/Screens/ringkasanLaporan.dart';
 import 'package:monkeep/Screens/laporanHutang.dart';
 
-class Filterlaporan extends StatefulWidget {
-  const Filterlaporan({Key? key}) : super(key: key);
+class Filterlaporan extends StatelessWidget {
+  final int currentIndex;
 
-  @override
-  State<Filterlaporan> createState() => _FilterlaporanState();
-}
-
-class _FilterlaporanState extends State<Filterlaporan> {
-  int indexColor = 0;
+  // Constructor without `const`
+  Filterlaporan({Key? key, required this.currentIndex}) : super(key: key);
 
   final List<String> filterNames = [
     "Saldo",
@@ -29,13 +25,10 @@ class _FilterlaporanState extends State<Filterlaporan> {
     LaporanHutang(),
   ];
 
-  void _setActiveIndex(int index) {
-    setState(() {
-      indexColor = index;
-    });
+  void navigateToPage(BuildContext context, int index) {
+    if (index == currentIndex) return;
 
-    
-    Navigator.push(
+    Navigator.pushReplacement(
       context,
       MaterialPageRoute(builder: (context) => filterPages[index]),
     );
@@ -49,22 +42,20 @@ class _FilterlaporanState extends State<Filterlaporan> {
       children: filterNames.asMap().entries.map((entry) {
         final index = entry.key;
         final filterName = entry.value;
-        final isActive = index == indexColor;
+        final isActive = index == currentIndex;
 
         return GestureDetector(
-          onTap: () {
-            _setActiveIndex(index); 
-          },
+          onTap: () => navigateToPage(context, index),
           child: Container(
             padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
-            margin: EdgeInsets.symmetric(vertical : 10),
+            margin: const EdgeInsets.symmetric(vertical: 10),
             decoration: BoxDecoration(
-              color: isActive ? Color(0xff4A63E2) : Color(0xff808CFA),
+              color: isActive ? const Color(0xff4A63E2) : const Color(0xff808CFA),
               borderRadius: BorderRadius.circular(16.0),
             ),
             child: AutoSizeText(
               filterName,
-              style: TextStyle(
+              style: const TextStyle(
                 color: Colors.white,
                 fontWeight: FontWeight.normal,
                 fontSize: 12,
