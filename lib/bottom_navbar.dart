@@ -5,7 +5,7 @@ import 'package:monkeep/Screens/addTabungan.dart';
 import 'package:monkeep/Screens/addTransaction.dart';
 import 'package:monkeep/Screens/home.dart';
 import 'package:monkeep/Screens/addHutang.dart';
-import 'package:monkeep/Screens/laporanSaldo.dart';
+import 'package:monkeep/filterWrapper.dart';
 import 'package:monkeep/Screens/saya.dart';
 import 'package:monkeep/Screens/tabunganBerencana.dart';
 
@@ -18,7 +18,7 @@ class Bottom extends StatefulWidget {
 
 class _BottomState extends State<Bottom> {
   int index_color = 0;
-  List<Widget> screens = [Home(), LaporanSaldo(), Container(), Tabunganberencana(), Saya()];
+  List<Widget> screens = [Home(), FilterWrapper(), Container(), Tabunganberencana(), Saya()];
 
   void onAddButtonClick() {
     showModalBottomSheet(

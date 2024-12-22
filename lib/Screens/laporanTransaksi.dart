@@ -1,8 +1,7 @@
 // Import statements
 import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/material.dart';
-import 'package:monkeep/models/data.dart'; // Pastikan ini terhubung dengan file data dummy
-import 'package:monkeep/Screens/filterLaporan.dart';
+import 'package:monkeep/models/data.dart'; 
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
 class LaporanTransaksi extends StatefulWidget {
@@ -43,29 +42,23 @@ class _LaporanTransaksiState extends State<LaporanTransaksi> {
           slivers: [
             SliverList(
               delegate: SliverChildListDelegate([
-                // Header
-                Container(
-                  width: double.infinity,
-                  height: 90,
-                  decoration: BoxDecoration(
-                    color: Color(0xFF4A63E2),
-                  ),
-                  child: Padding(
-                    padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 35),
+                // Header Title
+                  Padding(
+                    padding: const EdgeInsets.symmetric(horizontal: 16),
                     child: AutoSizeText(
-                      'Laporan Keuangan',
+                      'Transaksi',
                       style: TextStyle(
                         fontFamily: 'Poppins',
                         fontSize: 16,
                         fontWeight: FontWeight.bold,
-                        color: Colors.white,
+                        color: Colors.black,
                       ),
                       maxLines: 1,
                       maxFontSize: 24,
                       minFontSize: 14,
                     ),
                   ),
-                ),
+
 
                 // Filter bar
                 Padding(

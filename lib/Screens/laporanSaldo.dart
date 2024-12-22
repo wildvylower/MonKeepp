@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:monkeep/models/saldo.dart'; // Pastikan ini terhubung dengan file data dummy
-import 'package:monkeep/Screens/filterLaporan.dart';
+import 'package:monkeep/models/saldo.dart';
 import 'package:auto_size_text/auto_size_text.dart';
 
 class LaporanSaldo extends StatelessWidget {
@@ -16,34 +15,6 @@ class LaporanSaldo extends StatelessWidget {
             SliverList(
               delegate: SliverChildListDelegate(
                 [
-                  // Header
-                  Container(
-                    width: double.infinity,
-                    height: 90,
-                    color: const Color(0xFF4A63E2),
-                    child: const Padding(
-                      padding: EdgeInsets.symmetric(horizontal: 16, vertical: 35),
-                      child: Text(
-                        'Laporan Keuangan',
-                        style: TextStyle(
-                          fontFamily: 'Poppins',
-                          fontSize: 16,
-                          fontWeight: FontWeight.bold,
-                          color: Colors.white,
-                        ),
-                      ),
-                    ),
-                  ),
-
-                  Padding(padding: const EdgeInsets.symmetric(horizontal: 8),
-                  child: Container(
-                    width: double.infinity,
-                    child: 
-                      Filterlaporan(currentIndex: 0),
-                  ),),
-
-                  
-
                   // Header Title
                   Padding(
                     padding: const EdgeInsets.symmetric(horizontal: 16),

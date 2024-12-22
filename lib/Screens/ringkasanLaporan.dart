@@ -12,33 +12,23 @@ class Ringkasanlaporan extends StatelessWidget {
       child: CustomScrollView(
         slivers: [
           SliverList(delegate: SliverChildListDelegate([
-            //header 
-            Container(
-              width: double.infinity,
-              height: 90,
-              decoration: BoxDecoration(
-                color :  Color(0xFF4A63E2),
-              ),
-              child: Padding(padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 35),
-              child: 
-                     AutoSizeText('Laporan Keuangan',
-                     style: TextStyle(
-                      fontFamily: 'Poppins',
-                      fontSize: 16,
-                      fontWeight: FontWeight.bold,
-                      color: Colors.white,
-                     ),
-                     maxLines: 1,
-                     maxFontSize: 24,
-                     minFontSize: 14,
-                     ),
+            // Header Title
+                  Padding(
+                    padding: const EdgeInsets.symmetric(horizontal: 16),
+                    child: AutoSizeText(
+                      'Laporan',
+                      style: TextStyle(
+                        fontFamily: 'Poppins',
+                        fontSize: 16,
+                        fontWeight: FontWeight.bold,
+                        color: Colors.black,
+                      ),
+                      maxLines: 1,
+                      maxFontSize: 24,
+                      minFontSize: 14,
+                    ),
+                  ),
 
-              
-                
-              ),
-              
-              
-              ),
 
             
 
