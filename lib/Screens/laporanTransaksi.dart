@@ -89,7 +89,7 @@ class _LaporanTransaksiState extends State<LaporanTransaksi> {
                         borderRadius: BorderRadius.circular(10),
                         style: TextStyle(
                           fontFamily: 'Poppins',
-                          fontSize: 14,
+                          fontSize: 12,
                           color: Color(0xff808CFA),
                         ),
                         onChanged: (String? newValue) {
@@ -103,7 +103,7 @@ class _LaporanTransaksiState extends State<LaporanTransaksi> {
                             child: AutoSizeText(
                               value,
                               maxLines: 1,
-                              maxFontSize: 16,
+                              maxFontSize: 14,
                               minFontSize: 12,
                             ),
                           );
@@ -122,7 +122,7 @@ class _LaporanTransaksiState extends State<LaporanTransaksi> {
                         borderRadius: BorderRadius.circular(10),
                         style: TextStyle(
                           fontFamily: 'Poppins',
-                          fontSize: 14,
+                          fontSize: 12,
                           color: Color(0xff808CFA),
                         ),
                         onChanged: (String? newValue) {
@@ -136,7 +136,7 @@ class _LaporanTransaksiState extends State<LaporanTransaksi> {
                             child: AutoSizeText(
                               value,
                               maxLines: 1,
-                              maxFontSize: 16,
+                              maxFontSize: 14,
                               minFontSize: 12,
                             ),
                           );

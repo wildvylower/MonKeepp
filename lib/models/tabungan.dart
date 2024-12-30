@@ -1,3 +1,5 @@
+import 'package:intl/intl.dart';
+
 class Tabungan {
   final String name;        // Nama aplikasi (misalnya, Gopay, OVO)
   final double amount;      // Jumlah transaksi 
@@ -22,7 +24,13 @@ class Tabungan {
   //     icon: json['icon'],
   //   );
   // }
+
+   DateTime get deadlineDate {
+    return DateFormat('d MMMM yyyy', 'id_ID').parse(dateline);
+  }
 }
+
+
 
 final List<Tabungan> dummyTransactions = [
   Tabungan(

@@ -4,9 +4,12 @@ import 'package:monkeep/Screens/addHutang.dart';
 import 'package:monkeep/bottom_navbar.dart';
 import 'Screens/home.dart';
 import 'package:firebase_core/firebase_core.dart';
+import 'package:intl/intl.dart';
+import 'package:intl/date_symbol_data_local.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
+  await initializeDateFormatting('id_ID', null);
 
   if (kIsWeb) {
     await Firebase.initializeApp(

@@ -50,7 +50,7 @@ final List<Hutang> dummyTransactions = [
     amount: 'Rp 185.000',
     description: 'Cat No Drop Kuning Telor Asin',
     category: 'Hutang',
-    dateline: 'Lunas',
+    dateline: 'Belum Lunas',
     date : '12 Desember 2024'
   ),
   

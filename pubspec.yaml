@@ -80,6 +80,9 @@ flutter:
     - images/MoneyBag.png
     - images/MoneyBox.png
     - images/BankBuilding.png
+    - images/tabungan.png
+    - images/Star 1.png
+    - images/detailTabungan.png
     # - images/miaw.jpg
 
   #   - images/a_dot_ham.jpeg

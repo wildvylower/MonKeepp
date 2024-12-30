@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:monkeep/models/tabungan.dart';
 import 'package:intl/intl.dart';
+import 'package:monkeep/Screens/tabunganDetail.dart';
 
 class Tabunganberencana extends StatefulWidget {
   const Tabunganberencana({Key? key}) : super(key: key);
@@ -80,51 +81,61 @@ class _TabunganBerencanaState extends State<Tabunganberencana> {
     );
   }
 
- Container buildTransactionTile(Tabungan history) {
+ Widget buildTransactionTile(Tabungan history) {
   // Hitung progres tabungan
   double progress = history.amount / history.target;
   if (progress > 1.0) progress = 1.0;
 
-  return Container(
-    margin: const EdgeInsets.only(bottom: 8),
-    padding: const EdgeInsets.symmetric(vertical: 10, horizontal: 16),
-    decoration: BoxDecoration(
-      color: Colors.white,
-      borderRadius: BorderRadius.circular(10),
-      boxShadow: [
-        BoxShadow(
-          color: Colors.black.withOpacity(0.09),
-          blurRadius: 4,
-          spreadRadius: 1,
-          offset: const Offset(0, 2),
+  return GestureDetector(
+    onTap: () {
+      // Navigasi ke TabunganDetail saat item di klik
+      Navigator.push(
+        context,
+        MaterialPageRoute(
+          builder: (context) => TabunganDetail(tabungan: history),
         ),
-      ],
-    ),
-    child: Row(
-      crossAxisAlignment: CrossAxisAlignment.center,
-      children: [
-        // Bagian Kiri: Gambar Tabungan
-        ClipRRect(
-          borderRadius: BorderRadius.circular(5),
-          child: Image.asset(
-            'images/tabungan.png',
-            height: 70,
-            width: 90,
-            fit: BoxFit.cover,
+      );
+    },
+    child: Container(
+      margin: const EdgeInsets.only(bottom: 8),
+      padding: const EdgeInsets.symmetric(vertical: 10, horizontal: 16),
+      decoration: BoxDecoration(
+        color: Colors.white,
+        borderRadius: BorderRadius.circular(10),
+        boxShadow: [
+          BoxShadow(
+            color: Colors.black.withOpacity(0.09),
+            blurRadius: 4,
+            spreadRadius: 1,
+            offset: const Offset(0, 2),
           ),
-        ),
-        const SizedBox(width: 5),
+        ],
+      ),
+      child: Row(
+        crossAxisAlignment: CrossAxisAlignment.center,
+        children: [
+          // Bagian Kiri: Gambar Tabungan
+          ClipRRect(
+            borderRadius: BorderRadius.circular(5),
+            child: Image.asset(
+              'images/tabungan.png',
+              height: 70,
+              width: 90,
+              fit: BoxFit.cover,
+            ),
+          ),
+          const SizedBox(width: 5),
 
-        // Bagian Kanan: Nama, Chevron, Ikon, Jumlah, dan Progress
-        Expanded(
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              // Baris Pertama: Nama, Chevron Right, dan Ikon
-              Row(
-                children: [
-                  // Nama Tabungan
-                   AutoSizeText(
+          // Bagian Kanan: Nama, Chevron, Ikon, Jumlah, dan Progress
+          Expanded(
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                // Baris Pertama: Nama, Chevron Right, dan Ikon
+                Row(
+                  children: [
+                    // Nama Tabungan
+                    AutoSizeText(
                       history.name,
                       style: const TextStyle(
                         fontSize: 14,
@@ -134,92 +145,92 @@ class _TabunganBerencanaState extends State<Tabunganberencana> {
                       maxFontSize: 16,
                       minFontSize: 12,
                     ),
-                  
-                  // Chevron Right
-                  const Icon(
-                    Icons.chevron_right,
-                    color: Color(0xff4A63E2),
-                  ),
-                  const Spacer(),
-                  // Ikon Pencil
-                  IconButton(
-                    icon: const Icon(
-                      FontAwesomeIcons.pencil,
-                      color: Color(0xff4A63E2),
-                      size: 20,
-                    ),
-                    onPressed: () {
-                      // Logika untuk mengedit tabungan
-                    },
-                  ),
-                  // Ikon Trashcan
-                  IconButton(
-                    icon: const Icon(
-                      FontAwesomeIcons.trashCan,
-                      color: Color(0xff4A63E2),
-                      size: 20,
-                    ),
-                    onPressed: () {
-                      // Logika untuk menghapus tabungan
-                    },
-                  ),
-                ],
-              ),
 
-              // Baris Kedua: Jumlah Tabungan dan Progress Bar
-              AutoSizeText(
-                formatCurrency(history.amount),
-                style: const TextStyle(
-                  fontSize: 14,
-                  color: Colors.black,
-                  fontWeight: FontWeight.bold
-                ),
-                maxLines: 1,
-                maxFontSize: 16,
-                minFontSize: 12,
-              ),
-              const SizedBox(height: 8),
-              Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Container(
-                    height: 20, // Tinggi progress bar
-                    decoration: BoxDecoration(
-                      border: Border.all(
-                        color: const Color(0xffD9D9D9), // Warna border
-                        width: 2, // Ketebalan border
-                      ),
-                      color: const Color(0xffF3F4FE), // Warna latar belakang
-                    ),
-                    child: ClipRRect(
-                      child: LinearProgressIndicator(
-                        value: progress,
-                        color: const Color(0xff4A63E2),
-                        backgroundColor: Colors.transparent, // Warna transparan agar hanya border yang terlihat
-                        minHeight: 12, // Menyesuaikan dengan tinggi container
-                      ),
-                    ),
-                  ),
-                  const SizedBox(height: 4),
-                  AutoSizeText(
-                    'Ditabung ${(progress * 100).toStringAsFixed(1)}%',
-                    style: const TextStyle(
-                      fontSize: 12,
+                    // Chevron Right
+                    const Icon(
+                      Icons.chevron_right,
                       color: Color(0xff4A63E2),
                     ),
-                    maxLines: 1,
-                    maxFontSize: 14,
-                    minFontSize: 10,
+                    const Spacer(),
+                    // Ikon Pencil
+                    IconButton(
+                      icon: const Icon(
+                        FontAwesomeIcons.pencil,
+                        color: Color(0xff4A63E2),
+                        size: 20,
+                      ),
+                      onPressed: () {
+                        // Logika untuk mengedit tabungan
+                      },
+                    ),
+                    // Ikon Trashcan
+                    IconButton(
+                      icon: const Icon(
+                        FontAwesomeIcons.trashCan,
+                        color: Color(0xff4A63E2),
+                        size: 20,
+                      ),
+                      onPressed: () {
+                        // Logika untuk menghapus tabungan
+                      },
+                    ),
+                  ],
+                ),
+
+                // Baris Kedua: Jumlah Tabungan dan Progress Bar
+                AutoSizeText(
+                  formatCurrency(history.amount),
+                  style: const TextStyle(
+                    fontSize: 14,
+                    color: Colors.black,
+                    fontWeight: FontWeight.bold,
                   ),
-                ],
-              )
-            ],
-        ),
-        ),
-      ],
+                  maxLines: 1,
+                  maxFontSize: 16,
+                  minFontSize: 12,
+                ),
+                const SizedBox(height: 8),
+                Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Container(
+                      height: 20, // Tinggi progress bar
+                      decoration: BoxDecoration(
+                        border: Border.all(
+                          color: const Color(0xffD9D9D9), // Warna border
+                          width: 2, // Ketebalan border
+                        ),
+                        color: const Color(0xffF3F4FE), // Warna latar belakang
+                      ),
+                      child: ClipRRect(
+                        child: LinearProgressIndicator(
+                          value: progress,
+                          color: const Color(0xff4A63E2),
+                          backgroundColor: Colors.transparent, // Warna transparan agar hanya border yang terlihat
+                          minHeight: 12, // Menyesuaikan dengan tinggi container
+                        ),
+                      ),
+                    ),
+                    const SizedBox(height: 4),
+                    AutoSizeText(
+                      'Ditabung ${(progress * 100).toStringAsFixed(1)}%',
+                      style: const TextStyle(
+                        fontSize: 12,
+                        color: Color(0xff4A63E2),
+                      ),
+                      maxLines: 1,
+                      maxFontSize: 14,
+                      minFontSize: 10,
+                    ),
+                  ],
+                )
+              ],
+            ),
+          ),
+        ],
+      ),
     ),
   );
 }
 
-  
 }
