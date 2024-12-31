@@ -1,7 +1,9 @@
 import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/material.dart';
+import 'package:monkeep/filterWrapper.dart';
 import 'package:monkeep/models/data.dart'; 
 import 'package:fl_chart/fl_chart.dart';
+import 'package:intl/intl.dart';
 
 class Home extends StatefulWidget {
   const Home({Key? key}) : super(key: key);
@@ -14,6 +16,13 @@ class Home extends StatefulWidget {
     final List<Add_data>data = dummyTransactions;
     final AutoSizeGroup containerSaldo = AutoSizeGroup();
     final AutoSizeGroup containerTransaction = AutoSizeGroup();
+    String getCurrentMonthName() {
+      DateTime now = DateTime.now();
+      String monthName = DateFormat('MMMM').format(now);
+
+      return monthName;
+    }
+
 
     @override
 
@@ -23,6 +32,12 @@ class Home extends StatefulWidget {
       FlSpot(0, 10), // Contoh data: minggu pertama
       FlSpot(1, 30), // minggu kedua
       FlSpot(2, 20), // minggu ketiga
+      FlSpot(3, 50), // minggu keempat
+    ];
+      final List<FlSpot> incomeData = [
+      FlSpot(0, 20), // Contoh data: minggu pertama
+      FlSpot(1, 20), // minggu kedua
+      FlSpot(2, 40), // minggu ketiga
       FlSpot(3, 50), // minggu keempat
     ];
 
@@ -273,8 +288,8 @@ class Home extends StatefulWidget {
                   padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 5),
                   child: Container(
                     margin: EdgeInsets.only(top: 0),
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         AutoSizeText(
                           'Transaksi terakhir',
@@ -287,17 +302,6 @@ class Home extends StatefulWidget {
                           maxLines: 1,
                           maxFontSize: 24,
                           minFontSize: 16,
-                        ),
-                        AutoSizeText(
-                          'Lainnya',
-                          style: TextStyle(
-                            fontFamily: 'Poppins',
-                            fontSize: 14,
-                            color: Colors.grey,
-                          ),
-                          maxLines: 1,
-                          maxFontSize: 16,
-                          minFontSize: 10,
                         ),
                       ],
                     ),
@@ -350,109 +354,155 @@ class Home extends StatefulWidget {
                     ),
 
                 //statisik keuangan
-                Padding(
-                    padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 10),
-                    child: Container(
-                      width: double.infinity,
-                      height: 240,
-                      decoration: BoxDecoration(
-                        color: Colors.white,
-                        borderRadius: BorderRadius.circular(10),
-                        boxShadow: [
-                          BoxShadow(
-                            color: Colors.black.withOpacity(0.1),
-                            blurRadius: 6,
-                            offset: Offset(0, 3),
-                            spreadRadius: 2,
-                          ),
-                        ],
+               Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 10),
+                child: Container(
+                  width: double.infinity,
+                  height: 300, // Perbaiki tinggi container
+                  decoration: BoxDecoration(
+                    color: Colors.white,
+                    borderRadius: BorderRadius.circular(10),
+                    boxShadow: [
+                      BoxShadow(
+                        color: Colors.black.withOpacity(0.1),
+                        blurRadius: 6,
+                        offset: Offset(0, 3),
+                        spreadRadius: 2,
                       ),
-                      child: Padding(
-                        padding: const EdgeInsets.all(16.0), // Menambahkan padding di dalam container
-                        child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            AutoSizeText(
-                              'Statistik Keuanganmu Bulan Ini',
-                              style: TextStyle(
-                                fontFamily: 'Poppins',
-                                fontSize: 14,
-                                fontWeight: FontWeight.bold,
-                                color: Colors.black,
-                              ),
-                            maxLines: 1,
-                            maxFontSize: 20,
-                            minFontSize: 12,
-                            ),
-                           SizedBox(height: 10),
-                          Expanded(
-                            child: LineChart(
-                              LineChartData(
-                                gridData: FlGridData(show: false),
-                                titlesData: FlTitlesData(
-                                  leftTitles: AxisTitles(
-                                    sideTitles: SideTitles(
-                                      showTitles: true,
-                                      reservedSize: 30,
-                                      interval: 20,
-                                      getTitlesWidget: (value, meta) {
-                                        return Text(
-                                          '${value.toInt()}%',
-                                          style: TextStyle(fontSize: 10, color: Colors.black),
-                                        );
-                                      },
-                                    ),
+                    ],
+                  ),
+                  child: Padding(
+                    padding: const EdgeInsets.all(16.0), // Menambahkan padding di dalam container
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        // Judul
+                        AutoSizeText(
+                          'Statistik Keuanganmu Bulan Ini',
+                          
+                          style: TextStyle(
+                            fontFamily: 'Poppins',
+                            fontSize: 14,
+                            fontWeight: FontWeight.bold,
+                            color: Colors.black,
+                          ),
+                          maxLines: 1,
+                          maxFontSize: 20,
+                          minFontSize: 12,
+                        ),
+                        const SizedBox(height: 10),
+
+                        // Grafik di dalam Expanded
+                        Expanded(
+                          child: LineChart(
+                            LineChartData(
+                              gridData: FlGridData(show: false),
+                              titlesData: FlTitlesData(
+                                leftTitles: AxisTitles(
+                                  sideTitles: SideTitles(
+                                    showTitles: true,
+                                    reservedSize: 30,
+                                    interval: 20,
+                                    getTitlesWidget: (value, meta) {
+                                      return Text(
+                                        '${value.toInt()}%',
+                                        style: TextStyle(fontSize: 12, color: Colors.black),
+                                      );
+                                    },
                                   ),
-                                  bottomTitles: AxisTitles(
-                                    sideTitles: SideTitles(
-                                      showTitles: true,
-                                      getTitlesWidget: (value, meta) {
-                                        final monthLabels = ['Minggu 1', 'Minggu 2', 'Minggu 3', 'Minggu 4'];
-                                         if (value == 0 || value == 1 || value == 2 || value == 3) {
-                                          return Padding(
-                                            padding: const EdgeInsets.only(top: 8.0),
-                                            child: Text(
-                                              monthLabels[value.toInt()],
-                                              style: TextStyle(fontSize: 10, color: Colors.black),
-                                            ),
-                                          );
-                                        } else {
-                                          return Container(); // Kembalikan Container kosong jika label tidak diperlukan
-                                        }
-                                      },
+                                ),
+                                bottomTitles: AxisTitles(
+                                  sideTitles: SideTitles(
+                                    showTitles: false,
+                                    getTitlesWidget: (value, meta) {
+                                      return Padding(
+                                        padding: const EdgeInsets.only(top: 8.0),
                                         
-                                      
-                                    ),
-                                  ),
-                                  rightTitles: AxisTitles(
-                                    sideTitles: SideTitles(showTitles: false), // Hide right labels
-                                  ),
-                                  topTitles: AxisTitles(
-                                    sideTitles: SideTitles(showTitles: false), // Hide top labels
+                                      );
+                                    },
                                   ),
                                 ),
-                                borderData: FlBorderData(
-                                  show: true,
-                                  border: Border.all(color: const Color(0xFFE0E0E0), width: 1),
+                                rightTitles: AxisTitles(
+                                  sideTitles: SideTitles(showTitles: false),
                                 ),
-                                lineBarsData: [
-                                  LineChartBarData(
-                                    spots: expenseData,
-                                    isCurved: true,
-                                    color: Color(0xFF4A63E2),
-                                    barWidth: 3,
-                                    dotData: FlDotData(show: false),
-                                  ),
-                                ],
+                                topTitles: AxisTitles(
+                                  sideTitles: SideTitles(showTitles: false),
+                                ),
                               ),
+                              borderData: FlBorderData(
+                                show: true,
+                                border: Border.all(color: Colors.black, width: 1),
+                              ),
+                              lineBarsData: [
+                                LineChartBarData(
+                                  spots: incomeData, // Data pemasukan
+                                  isCurved: true,
+                                  color: const Color(0xFF4A63E2), // Warna biru untuk pemasukan
+                                  barWidth: 3,
+                                  dotData: FlDotData(show: false),
+                                ),
+                                LineChartBarData(
+                                  spots: expenseData, // Data pengeluaran
+                                  isCurved: true,
+                                  color: const Color(0xFFB49AD2), // Warna ungu untuk pengeluaran
+                                  barWidth: 3,
+                                  dotData: FlDotData(show: false),
+                                ),
+                              ],
                             ),
                           ),
+                        ),
 
+                        Center(
+                          child: AutoSizeText(
+                          getCurrentMonthName(),
+                          style: TextStyle(
+                            fontFamily: 'Poppins',
+                            fontSize: 12,
+                          ),
+                          maxLines: 1,
+                          maxFontSize: 14,
+                          minFontSize: 10,
+                        ),
+                        ),
+                        
+
+                        // Tambahkan widget di bawah grafik untuk legenda
+                        const SizedBox(height: 10),
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            Row(
+                              children: [
+                                Container(
+                                  width: 10,
+                                  height: 10,
+                                  color: const Color(0xFF4A63E2), // Warna biru untuk pemasukan
+                                ),
+                                const SizedBox(width: 5),
+                                const Text('Pemasukan', style: TextStyle(fontSize: 12)),
+                              ],
+                            ),
+                            const SizedBox(width: 20),
+                            Row(
+                              children: [
+                                Container(
+                                  width: 10,
+                                  height: 10,
+                                  color: const Color(0xFFB49AD2), // Warna ungu untuk pengeluaran
+                                ),
+                                const SizedBox(width: 5),
+                                const Text('Pengeluaran', style: TextStyle(fontSize: 12)),
+                              ],
+                            ),
                           ],
                         ),
-                      ),
+                      ],
                     ),
                   ),
+                ),
+              ),
+
 
                    //header artikel keuangan
                 Padding(

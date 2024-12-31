@@ -18,6 +18,8 @@ class Bottom extends StatefulWidget {
 
 class _BottomState extends State<Bottom> {
   int index_color = 0;
+
+  // Define the screens, including FilterWrapper
   List<Widget> screens = [Home(), FilterWrapper(), Container(), Tabunganberencana(), Saya()];
 
   void onAddButtonClick() {
@@ -78,7 +80,7 @@ class _BottomState extends State<Bottom> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: screens[index_color],
+      body: screens[index_color], // Display the corresponding screen
       floatingActionButton: FloatingActionButton(
         onPressed: onAddButtonClick,
         child: FaIcon(
@@ -91,7 +93,6 @@ class _BottomState extends State<Bottom> {
       floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
       bottomNavigationBar: Container(
         decoration: BoxDecoration(
-          
           boxShadow: [
             BoxShadow(
               color: Colors.black.withOpacity(0.15), 
@@ -125,7 +126,7 @@ class _BottomState extends State<Bottom> {
     return GestureDetector(
       onTap: () {
         setState(() {
-          index_color = index;
+          index_color = index; // Change active tab
         });
       },
       child: Column(
