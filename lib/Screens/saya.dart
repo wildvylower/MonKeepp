@@ -49,7 +49,7 @@ class Saya extends StatelessWidget {
                         children: [
                           CircleAvatar(
                             radius: 50,
-                            backgroundImage: AssetImage('images/miaw.jpg'), // Replace with actual image path
+                            backgroundImage: AssetImage('images/callistosyg.jpg'), // Replace with actual image path
                           ),
                           Positioned(
                             bottom: 0,
@@ -68,7 +68,7 @@ class Saya extends StatelessWidget {
                       ),
                       SizedBox(height: 20),
                       Text(
-                        'Hades',
+                        'Callisto',
                         style: TextStyle(
                           fontFamily: 'Poppins',
                           fontSize: 18,

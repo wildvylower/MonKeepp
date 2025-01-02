@@ -4,6 +4,7 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:monkeep/models/tabungan.dart';
 import 'package:intl/intl.dart';
 import 'package:monkeep/Screens/tabunganDetail.dart';
+import 'package:monkeep/Screens/editTabungan.dart';
 
 class Tabunganberencana extends StatefulWidget {
   const Tabunganberencana({Key? key}) : super(key: key);
@@ -220,7 +221,10 @@ class _TabunganBerencanaState extends State<Tabunganberencana> {
                           size: 20,
                         ),
                         onPressed: () {
-                          // Logika untuk mengedit tabungan
+                          Navigator.push(
+                          context,
+                          MaterialPageRoute(builder: (context) => Edittabungan(tabungan: history)),
+                        );
                         },
                       ),
                       // Ikon Trashcan

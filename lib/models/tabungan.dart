@@ -1,10 +1,10 @@
 import 'package:intl/intl.dart';
 
 class Tabungan {
-  final String name;        // Nama aplikasi (misalnya, Gopay, OVO)
-  final double amount;      // Jumlah transaksi 
-  final double target;          // Kategori (Income atau Expense)
-  final String dateline;    // Kategori transaksi (misalnya, Makanan, Transportasi)
+   String name;        // Nama aplikasi (misalnya, Gopay, OVO)
+   double amount;      // Jumlah transaksi 
+   double target;          // Kategori (Income atau Expense)
+   String dateline;    // Kategori transaksi (misalnya, Makanan, Transportasi)
 
   Tabungan({
     required this.name,
@@ -28,6 +28,11 @@ class Tabungan {
    DateTime get deadlineDate {
     return DateFormat('d MMMM yyyy', 'id_ID').parse(dateline);
   }
+
+  set deadlineDate(DateTime newDeadline) {
+    dateline = DateFormat('d MMMM yyyy', 'id_ID').format(newDeadline);
+  
+}
 }
 
 
@@ -37,7 +42,7 @@ final List<Tabungan> dummyTransactions = [
     name: 'Mau Beli Rumah',
     amount: 1000000000, // Angka tanpa format pemisah
     target: 100000000000,
-    dateline: '20 Januari 2026',
+    dateline: '20 Januari 2025',
   ),
   Tabungan(
     name: 'Beli Album BTS',

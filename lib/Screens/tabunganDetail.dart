@@ -24,11 +24,17 @@ class TabunganDetail extends StatelessWidget {
     final DateTime today = DateTime.now();
     final DateTime deadline = tabungan.deadlineDate;
     final int totalDays = deadline.difference(today).inDays;
-    final double remainDays = totalDays > 0 
-  ? totalDays / (365 * (deadline.year - today.year)) // Membagi berdasarkan tahun yang relevan
-  : 0.0;
+  final double remainDays = totalDays > 0 ? totalDays / 365 : 0.0;
+
+
+// Debugging Output (Opsional)
+print("Total Days: $totalDays");
+print("Remain Days: $remainDays");
+print("Progress Bar Value: ${remainDays.clamp(0.0, 1.0)}");
+
     final double sisaTarget = tabungan.target - tabungan.amount;
     final double targetPerHari = totalDays > 0 ? sisaTarget / totalDays : 0.0;
+    
     
 
     return Scaffold(
@@ -377,5 +383,4 @@ class TabunganDetail extends StatelessWidget {
     );
   }
 }
-
 
