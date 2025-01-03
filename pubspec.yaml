@@ -39,6 +39,7 @@ dependencies:
   firebase_core: ^3.9.0
   firebase_database: ^11.2.0
   intl: ^0.18.0
+  smooth_page_indicator: ^1.2.0
 
 
   # The following adds the Cupertino Icons font to your application.
@@ -85,7 +86,15 @@ flutter:
     - images/detailTabungan.png
     - images/editTabungan.png
     - images/callistosyg.jpg
-    # - images/miaw.jpg
+    - images/kanan atas.png
+    - images/kanan bawah.png
+    - images/kiri tengah.png
+    - images/kiri bawah.png
+    - images/monkeep.png
+    - images/1.png
+    - images/2.png
+    - images/3.png
+    - images/Ellipse 7.png
 
   #   - images/a_dot_ham.jpeg
 
