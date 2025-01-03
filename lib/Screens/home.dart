@@ -1,9 +1,12 @@
 import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/material.dart';
-import 'package:monkeep/filterWrapper.dart';
+import 'package:monkeep/models/article.dart';
 import 'package:monkeep/models/data.dart'; 
 import 'package:fl_chart/fl_chart.dart';
 import 'package:intl/intl.dart';
+import 'package:url_launcher/url_launcher.dart';
+import 'package:flutter_web_browser/flutter_web_browser.dart';
+
 
 class Home extends StatefulWidget {
   const Home({Key? key}) : super(key: key);
@@ -521,6 +524,10 @@ class Home extends StatefulWidget {
                         ),
                     ),
 
+                    Padding(padding: EdgeInsets.symmetric(horizontal:16),
+                    child: ArticleSlider(articles: dummyArticles),
+                    )
+
                   
                 
 
@@ -615,6 +622,89 @@ class Home extends StatefulWidget {
   );
 }
 
-    
   
+}
+
+class ArticleSlider extends StatelessWidget {
+  final List<Article> articles;
+
+  ArticleSlider({required this.articles});
+
+  @override
+  Widget build(BuildContext context) {
+    return SizedBox(
+      height: 250, 
+      child: ListView.builder(
+        scrollDirection: Axis.horizontal, // Slide ke samping
+        padding: const EdgeInsets.all(16),
+        itemCount: articles.length,
+        itemBuilder: (context, index) {
+          final article = articles[index];
+          return Padding(
+            padding: const EdgeInsets.only(right: 16), // Jarak antar kartu
+            child: GestureDetector(
+              onTap: () {
+                launchURL(article.websiteUrl);
+              },
+              child: SizedBox(
+                width: 200, // Atur lebar kartu
+                child: Card(
+                  elevation: 4,
+                  color: Colors.white,
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      // Gambar Artikel
+                      ClipRRect(
+                        borderRadius: BorderRadius.vertical(top: Radius.circular(8)),
+                        child: Image.network(
+                          article.imageUrl,
+                          height: 120,
+                          width: double.infinity,
+                          fit: BoxFit.cover,
+                          errorBuilder: (context, error, stackTrace) {
+                            return Container(
+                              height: 120,
+                              color: Colors.white,
+                              child: Icon(Icons.broken_image, size: 40),
+                            );
+                          },
+                        ),
+                      ),
+                      // Judul Artikel
+                      Padding(
+                        padding: const EdgeInsets.all(8.0),
+                        child: Text(
+                          article.title,
+                          style: TextStyle(
+                            fontSize: 14,
+                            fontWeight: FontWeight.bold,
+                          ),
+                          maxLines: 2,
+                          overflow: TextOverflow.ellipsis,
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+              ),
+            ),
+          );
+        },
+      ),
+    );
+  }
+
+  void launchURL(String url) async {
+    try {
+      final Uri uri = Uri.parse(url);
+      if (await canLaunchUrl(uri)) {
+        await launchUrl(uri, mode: LaunchMode.inAppWebView);
+      } else {
+        debugPrint('Could not launch $url');
+      }
+    } catch (e) {
+      debugPrint('Error launching URL: $e');
+    }
+  }
 }

@@ -1,6 +1,7 @@
 import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/material.dart';
 import 'package:monkeep/Screens/riwayat.dart';
+import 'package:monkeep/Screens/settings.dart';
 
 class Saya extends StatelessWidget {
   const Saya({super.key});
@@ -158,7 +159,10 @@ class Saya extends StatelessWidget {
                     ),
                     trailing: const Icon(Icons.arrow_forward_ios, color: Colors.black),
                     onTap: () {
-                      // Navigate to Settings
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(builder: (context) => Settings()),
+                      );
                     },
                   ),
                 ),

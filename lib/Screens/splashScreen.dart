@@ -109,13 +109,4 @@ class _SplashScreenState extends State<SplashScreen> {
   }
 }
 
-class NextScreen extends StatelessWidget {
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      body: Center(
-        child: Text('Halaman Utama'),
-      ),
-    );
-  }
-}
+
